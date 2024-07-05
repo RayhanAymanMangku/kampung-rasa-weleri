@@ -162,7 +162,7 @@ export const MenuListModal = ({ idCustomer, namaCustomer, kontakCustomer, setSho
                         <button className='px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition duration-200' onClick={handleCheckout}>Checkout</button>
                     </div>
 
-                    {showCheckout && <CheckoutModal setShowCheckout={setShowCheckout} orderData={{ waktuPesanan: new Date().toISOString(), totalHarga: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, idPesanan: idPesanan }} />}
+                    {showCheckout && <CheckoutModal setShowCheckout={setShowCheckout} orderData={{ waktuPesanan: new Date().toISOString(), totalPrice: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, idPesanan: idPesanan }} />}
                 </div>
             </div>
         </div>
@@ -197,12 +197,7 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
 
     const handleCheckout = async () => {
         const orderDetails = getOrderDetails();
-
-        if (orderDetails.length === 0) {
-            alert('Order details cannot be empty.');
-            return;
-        }
-
+        const waktuPesanan = new Date().toISOString();
 
         const waktuPesananIndonesia = moment.tz(waktuPesanan, "Asia/Jakarta").format();
 
@@ -215,6 +210,9 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
             kontakCustomer,
             selectedTable,
         };
+
+        console.log("Order data being sent:", orderData); // Log data being sent
+
 
         try {
             const response = await axios.post('http://localhost:3060/api/v1/dinein-orders', orderData, {
@@ -354,7 +352,7 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
                         <button className='px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition duration-200' onClick={handleCheckout}>Checkout</button>
                     </div>
 
-                    {showCheckout && <CheckoutModalDineIn setShowCheckout={setShowCheckout} orderData={{ waktuPesanan, totalHarga: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, selectedTable, idPesanan }} />}
+                    {showCheckout && <CheckoutModalDineIn setShowCheckout={setShowCheckout} orderData={{ waktuPesanan, totalPrice: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, selectedTable, idPesanan }} />}
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IconButton } from '@material-ui/core';
 import axios from 'axios';
 
@@ -7,7 +7,7 @@ export const CheckoutModal = ({ setShowCheckout, orderData }) => {
         try {
             console.log("Order data being sent:", {
                 idPesanan: orderData.idPesanan, // Ensure idPesanan is sent
-                grossAmount: orderData.totalHarga,
+                grossAmount: orderData.totalPrice,
                 customerDetails: {
                     namaCustomer: orderData.namaCustomer,
                 },
@@ -15,7 +15,7 @@ export const CheckoutModal = ({ setShowCheckout, orderData }) => {
 
             const response = await axios.post('http://localhost:3060/api/create-transaction', {
                 idPesanan: orderData.idPesanan, // Ensure idPesanan is sent
-                grossAmount: orderData.totalHarga,
+                grossAmount: orderData.totalPrice,
                 customerDetails: {
                     namaCustomer: orderData.namaCustomer,
                 },
@@ -53,7 +53,7 @@ export const CheckoutModal = ({ setShowCheckout, orderData }) => {
         window.location.href = '/';
     };
 
-    const { waktuPesanan, totalHarga, orderDetails, idPesanan } = orderData; // Destructure idPesanan
+    const { waktuPesanan, totalPrice, orderDetails, idPesanan } = orderData; // Destructure idPesanan
 
     return (
         <div className="modal fixed w-full h-full top-0 left-0 flex flex-col items-center justify-center">
@@ -97,7 +97,7 @@ export const CheckoutModal = ({ setShowCheckout, orderData }) => {
                         </div>
                         <div className="flex justify-between items-center">
                             <p className="text-lg">Total Harga</p>
-                            <p className="text-lg">Rp. {totalHarga}</p>
+                            <p className="text-lg">Rp. {totalPrice}</p>
                         </div>
                         <div className="flex flex-col gap-2 mt-4">
                             <h4 className='text-lg font-semibold'>Detail Pesanan</h4>
