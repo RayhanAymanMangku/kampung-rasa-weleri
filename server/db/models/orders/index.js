@@ -1,7 +1,7 @@
 const knexConfig =
   require("../../knexfile")[process.env.NODE_ENV || "development"];
 const knex = require("knex")(knexConfig);
-
+const moment = require("moment-timezone");
 async function getCustomerID(kontakCustomer, namaCustomer, trx) {
   try {
     const customer = await trx("customer")
@@ -66,13 +66,17 @@ async function createOrder(
   totalPrice,
   orderDetails
 ) {
+  const waktuPesananIndonesia = moment
+    .tz(waktuPesanan, "Asia/Jakarta")
+    .format();
+
   return knex
     .transaction(async (trx) => {
       const idCustomer = await getCustomerID(kontakCustomer, namaCustomer, trx);
       console.log("idCustomer after getCustomerID:", idCustomer); // Logging idCustomer
 
       const [order] = await trx("pesanan").insert(
-        { idCustomer, waktuPesanan: new Date(waktuPesanan), totalPrice },
+        { idCustomer, waktuPesanan: waktuPesanan, totalPrice },
         ["idPesanan"]
       );
 

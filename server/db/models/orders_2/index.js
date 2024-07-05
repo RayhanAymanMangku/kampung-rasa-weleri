@@ -69,7 +69,14 @@ async function getAllDineInOrders() {
   for (let order of orders) {
     const details = await knex("orderDetails")
       .join("menu", "orderDetails.idMenu", "menu.idMenu")
-      .select("menu.namaMenu", "orderDetails.quantity", "orderDetails.idMenu")
+      .join("orders", "orderDetails.idOrder", "orders.idOrder")
+      .select(
+        "menu.namaMenu",
+        "orderDetails.quantity",
+        "orderDetails.idMenu",
+        "orders.waktuPesanan",
+        "orders.totalPrice"
+      )
       .where("orderDetails.idOrder", order.idOrder);
 
     order.details = details;
@@ -90,7 +97,7 @@ async function getDineInOrderById(idPesanan) {
       "customer.kontakCustomer",
       "tables.idTable",
       "orders.idCustomer",
-      "orders.totalPrice" // Menambahkan totalPrice ke dalam select
+      "orders.totalPrice"
     )
     .where("orders.idOrder", idPesanan);
 
