@@ -265,12 +265,12 @@ export const DataPemasukan = ({ totalIncome2024 }) => {
     };
 
     return (
-        <div className="w-80 h-36 rounded-md shadow-md bg-green-500">
+        <div className="w-full h-36 rounded-md shadow-md bg-green-500">
             <div className="w-fit p-4">
                 <div className="flex justify-between items-center">
-                    <label htmlFor="#" className="text-xl font-semibold text-white mr-10">Total Pemasukan</label>
+                    <label htmlFor="#" className="text-xl font-semibold text-white">Total Pemasukan</label>
                     <select
-                        className="py-1 px-2 border rounded-md text-white bg-transparent"
+                        className="py-1 px-2 xl:mt-[-30px] border rounded-md text-white bg-transparent"
                         value={selectedYear}
                         onChange={handleYearChange}
                     >

@@ -304,12 +304,9 @@ export default function ChartPenjualan() {
 }
 
 const DataPenjualan = ({ totalIncome2024, totalPengeluaran }) => {
-    const [selectedYear, setSelectedYear] = useState("2024");
     const [orderCount, setOrderCount] = useState(0);
-
-    const handleYearChange = (event) => {
-        setSelectedYear(event.target.value);
-    };
+    const [selectedYear, setSelectedYear] = useState("2024");
+    const [totalIncome, setTotalIncome] = useState(0);
 
     const formatRupiah = (number) => {
         return new Intl.NumberFormat('id-ID', {
@@ -317,7 +314,11 @@ const DataPenjualan = ({ totalIncome2024, totalPengeluaran }) => {
             currency: 'IDR',
             minimumFractionDigits: 0
         }).format(number);
-    }
+    };
+
+    const handleYearChange = (event) => {
+        setSelectedYear(event.target.value);
+    };
 
     useEffect(() => {
         const fetchOrderData = async () => {
@@ -334,10 +335,34 @@ const DataPenjualan = ({ totalIncome2024, totalPengeluaran }) => {
         fetchOrderData();
     }, [selectedYear]);
 
+
+    useEffect(() => {
+        const fetchIncome = async () => {
+            try {
+                const response = await fetch('http://localhost:3060/api/v1/income');
+                const data = await response.json();
+                setTotalIncome(data.netIncome);
+            } catch (error) {
+                console.error("Error fetching income data:", error);
+            }
+        };
+
+        fetchIncome();
+    }, []);
+
     return (
         <div className="flex w-full mt-10">
             <div className="box">
-                <div className="grid grid-cols-3 gap-8">
+                <div className="grid grid-cols-4 gap-4 pe-14">
+                    <div className="w-full h-36 rounded-md shadow-md bg-indigo-500">
+                        <div className="w-full p-4">
+                            <label htmlFor="#" className="text-xl font-semibold text-white">Keuntungan Bersih</label>
+                            <div className="w-fit mt-3 flex items-center">
+                                <CurrencyDollarIcon className="h-6 w-6 text-white mr-2" />
+                                <label htmlFor="#" className="text-white text-lg">{formatRupiah(totalIncome)}</label>
+                            </div>
+                        </div>
+                    </div>
                     <div className="w-full h-36 rounded-md shadow-md bg-red-500">
                         <div className="w-full p-4">
                             <label htmlFor="#" className="text-xl font-semibold text-white">Pengeluaran</label>
@@ -347,10 +372,10 @@ const DataPenjualan = ({ totalIncome2024, totalPengeluaran }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-80 h-36 rounded-md shadow-md bg-cyan-500">
+                    <div className="w-full h-36 rounded-md shadow-md bg-cyan-500">
                         <div className="w-full p-4">
                             <div className="flex justify-between items-start">
-                                <label htmlFor="#" className="text-xl font-semibold text-white mr-36">Order</label>
+                                <label htmlFor="#" className="text-xl font-semibold text-white pe-24">Order</label>
                                 <select
                                     className="py-1 px-2 border rounded-md text-white bg-transparent"
                                     value={selectedYear}
@@ -375,6 +400,7 @@ const DataPenjualan = ({ totalIncome2024, totalPengeluaran }) => {
         </div>
     );
 };
+
 
 function Chart1({ selectedYear, handleYearChange, chartData }) {
     return (
