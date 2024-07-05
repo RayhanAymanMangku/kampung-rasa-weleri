@@ -37,14 +37,14 @@ export const ManageOrder = () => {
     }, [selectedOption]);
 
     const handleShowMenuModal = (idPesanan) => {
-        console.log('idPesanan:', idPesanan); // Debugging log
+        console.log('idPesanan:', idPesanan);
         if (idPesanan) {
             const endpoint = `http://localhost:3060/api/v1/data-orders/pesanan/${idPesanan}`;
 
             axios.get(endpoint)
                 .then(response => {
                     if (response.status === 200) {
-                        console.log('Order details:', response.data); // Debugging log
+                        console.log('Order details:', response.data);
                         setOrderDetails(response.data);
                         setShowListPesanan(true);
                     } else {
@@ -60,7 +60,7 @@ export const ManageOrder = () => {
     };
 
     const handleShowMenuModalDineIn = (details) => {
-        console.log('details:', details); // Debugging log
+        console.log('details:', details);
         if (details) {
             setOrderDetails(details);
             setShowListPesanan(true);
@@ -74,7 +74,7 @@ export const ManageOrder = () => {
     };
 
     const handleDeleteOrder = (idPesanan) => {
-        axios.delete(`/Order/HandlePesanan.php?id=${idPesanan}`)
+        axios.delete(``)
             .then(response => {
                 if (response.data.status === 'success') {
                     if (selectedOption === "Take Away") {

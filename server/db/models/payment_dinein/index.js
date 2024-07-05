@@ -9,17 +9,17 @@ const snap = new midtransClient.Snap({
 });
 
 const createTransaction = async (idOrder, grossAmount, customerDetails) => {
-  console.log("Model received idOrder:", idOrder); // Log received idOrder
+  console.log("Model received idOrder:", idOrder);
 
   const parameter = {
     transaction_details: {
-      order_id: idOrder.toString(), // Convert idOrder to order_id for Midtrans API
+      order_id: idOrder.toString(),
       gross_amount: grossAmount,
     },
     customer_details: customerDetails,
   };
 
-  console.log("Transaction parameters:", parameter); // Log parameters
+  console.log("Transaction parameters:", parameter);
 
   if (!parameter.transaction_details.order_id) {
     console.error("Error: order_id is not defined.");

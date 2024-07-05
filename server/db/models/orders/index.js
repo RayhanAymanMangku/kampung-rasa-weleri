@@ -112,9 +112,27 @@ function deleteOrder(idPesanan) {
   });
 }
 
+async function updateOrderStatus(idPesanan, status) {
+  try {
+    const updatedRows = await knex("pesanan")
+      .where("idPesanan", idPesanan)
+      .update({ status });
+
+    if (updatedRows === 0) {
+      throw new Error("Pesanan tidak ditemukan");
+    }
+
+    return { message: "Status pesanan berhasil diperbarui" };
+  } catch (error) {
+    console.error("Error in updateOrderStatus:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   createOrder,
   deleteOrder,
   getDataOrders,
   getOrderDetailsByPesanan,
+  updateOrderStatus,
 };

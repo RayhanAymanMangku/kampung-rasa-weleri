@@ -5,7 +5,7 @@ export const TakeAwayTable = ({ orders, handleShowMenuModal, handleDeleteOrder }
 
     const handleCompleteOrder = (idPesanan) => {
         setCompletedOrders([...completedOrders, idPesanan]);
-        handleDeleteOrder(idPesanan); // Optional: Call original delete order handler if needed
+        handleDeleteOrder(idPesanan);
     };
 
     return (

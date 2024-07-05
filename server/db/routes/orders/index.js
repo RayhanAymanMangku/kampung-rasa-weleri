@@ -11,5 +11,9 @@ router.get(
 router.get("/api/v1/data-orders", ordersController.getDataOrders);
 router.post("/api/v1/data-orders", ordersController.createOrder);
 router.delete("/api/v1/data-orders/:id", ordersController.deleteOrder);
+router.put(
+  "/api/v1/data-orders/:id/status",
+  ordersController.updateOrderStatus
+);
 
 module.exports = router;

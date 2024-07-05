@@ -107,12 +107,12 @@ const TabsDineIn = () => {
 
         try {
             const customerResponse = await axios.post("http://localhost:3060/api/v1/data-customer", customerData);
-            const idCustomerFromResponse = customerResponse.data.idCustomer; // Ensure correct extraction
+            const idCustomerFromResponse = customerResponse.data.idCustomer;
 
-            console.log("Extracted idCustomer:", idCustomerFromResponse); // Debugging log
+            console.log("Extracted idCustomer:", idCustomerFromResponse);
             setIdCustomer(idCustomerFromResponse);
             setShowMenuList(true);
-            console.log("showMenuList state after setting:", showMenuList); // Debugging state change
+            console.log("showMenuList state after setting:", showMenuList);
         } catch (error) {
             console.error("Error:", error);
         }

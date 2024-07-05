@@ -10,7 +10,7 @@ exports.up = function (knex) {
     table.integer("idTable").notNullable();
     table.integer("totalPrice").notNullable();
     table.timestamp("waktuPesanan").notNullable();
-    table.timestamps(true, true); // Adds created_at and updated_at columns
+    table.timestamps(true, true);
   });
 };
 

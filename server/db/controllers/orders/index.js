@@ -62,9 +62,22 @@ async function deleteOrder(req, res) {
   }
 }
 
+async function updateOrderStatus(req, res) {
+  const idPesanan = req.params.id;
+  const { status } = req.body;
+
+  try {
+    const result = await ordersModel.updateOrderStatus(idPesanan, status);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 module.exports = {
   getOrderDetailsByPesanan,
   createOrder,
   deleteOrder,
   getDataOrders,
+  updateOrderStatus,
 };
