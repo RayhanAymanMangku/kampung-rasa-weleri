@@ -10,6 +10,8 @@ const snap = new midtransClient.Snap({
 
 const createTransaction = async (idOrder, grossAmount, customerDetails) => {
   console.log("Model received idOrder:", idOrder);
+  console.log("Model received grossAmount:", grossAmount);
+  console.log("Model received customerDetails:", customerDetails);
 
   const parameter = {
     transaction_details: {
@@ -21,8 +23,12 @@ const createTransaction = async (idOrder, grossAmount, customerDetails) => {
 
   console.log("Transaction parameters:", parameter);
 
-  if (!parameter.transaction_details.order_id) {
-    console.error("Error: order_id is not defined.");
+  if (
+    !parameter.transaction_details.order_id ||
+    !parameter.transaction_details.gross_amount
+  ) {
+    console.error("Error: order_id or gross_amount is not defined.");
+    throw new Error("order_id and gross_amount must be defined");
   }
 
   try {

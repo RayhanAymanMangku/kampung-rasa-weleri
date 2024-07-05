@@ -3,8 +3,10 @@ const PaymentDineInModel = require("../../models/payment_dinein");
 const createTransaction = async (req, res) => {
   const { idOrder, grossAmount, customerDetails } = req.body;
 
-  if (!idOrder) {
-    return res.status(400).json({ message: "idOrder is required" });
+  if (!idOrder || !grossAmount) {
+    return res
+      .status(400)
+      .json({ message: "idOrder and grossAmount are required" });
   }
 
   console.log("Received request:", req.body);
