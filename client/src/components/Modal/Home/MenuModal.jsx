@@ -3,6 +3,8 @@ import { IconButton } from '@material-ui/core';
 import axios from 'axios';
 import { CheckoutModal, CheckoutModalDineIn } from './CheckoutModal';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
+import moment from 'moment-timezone';
+
 
 export const MenuListModal = ({ idCustomer, namaCustomer, kontakCustomer, setShowMenuList }) => {
     const [totalPrice, setTotalPrice] = useState(0);
@@ -175,6 +177,7 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
     const [kategoriMenu, setKategoriMenu] = useState([]);
     const [showCheckout, setShowCheckout] = useState(false);
     const [idPesanan, setIdPesanan] = useState(null);
+    const [waktuPesanan, setWaktuPesanan] = useState('');
 
     const getOrderDetails = () => {
         return content.filter(item => item.quantity > 0).map(item => ({
@@ -194,16 +197,18 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
 
     const handleCheckout = async () => {
         const orderDetails = getOrderDetails();
-        const waktuPesanan = new Date().toISOString();
 
         if (orderDetails.length === 0) {
             alert('Order details cannot be empty.');
             return;
         }
 
+
+        const waktuPesananIndonesia = moment.tz(waktuPesanan, "Asia/Jakarta").format();
+
         const orderData = {
             idCustomer,
-            waktuPesanan,
+            waktuPesanan: waktuPesananIndonesia,
             totalPrice,
             orderDetails,
             namaCustomer,
@@ -231,6 +236,7 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
         }
     };
 
+
     useEffect(() => {
         axios.get('http://localhost:3060/api/v1/kategori-menu')
             .then(response => {
@@ -257,6 +263,10 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
                 alert('Error fetching menu data');
             });
     }, []);
+
+    const handleWaktuPesananChange = (event) => {
+        setWaktuPesanan(event.target.value);
+    };
 
     useEffect(() => {
         const totalPrice = content.reduce((acc, item) => {
@@ -313,8 +323,13 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
                         </div>
                     </div>
                     <p className="text-xl font-bold mt-4">Tanggal dan Jam</p>
-                    <input type='datetime-local' className='w-full border pl-2 border-gray-300 h-10 rounded-sm text-justify' name='waktuPesanan' />
-
+                    <input
+                        type='datetime-local'
+                        className='w-full border pl-2 border-gray-300 h-10 rounded-sm text-justify'
+                        name='waktuPesanan'
+                        value={waktuPesanan}
+                        onChange={handleWaktuPesananChange}
+                    />
                     <p className="text-xl font-bold mt-4">Pilih Menu</p>
                     {kategoriMenu.map(category => (
                         <div key={category.idKategoriMenu}>
@@ -339,12 +354,14 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
                         <button className='px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition duration-200' onClick={handleCheckout}>Checkout</button>
                     </div>
 
-                    {showCheckout && <CheckoutModalDineIn setShowCheckout={setShowCheckout} orderData={{ waktuPesanan: new Date().toISOString(), totalHarga: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, selectedTable, idPesanan }} />}
+                    {showCheckout && <CheckoutModalDineIn setShowCheckout={setShowCheckout} orderData={{ waktuPesanan, totalHarga: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, selectedTable, idPesanan }} />}
                 </div>
             </div>
         </div>
     );
 };
+
+
 
 
 

@@ -1,0 +1,40 @@
+const handleCheckout = async () => {
+        const orderDetails = getOrderDetails();
+
+        if (orderDetails.length === 0) {
+            alert('Order details cannot be empty.');
+            return;
+        }
+
+        // Konversi waktuPesanan ke zona waktu Indonesia (WIB)
+        const waktuPesananIndonesia = moment.tz(waktuPesanan, "Asia/Jakarta").format();
+
+        const orderData = {
+            idCustomer,
+            waktuPesanan: waktuPesananIndonesia,
+            totalPrice,
+            orderDetails,
+            namaCustomer,
+            kontakCustomer,
+            selectedTable,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:3060/api/v1/dinein-orders', orderData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getToken()}`,
+                },
+            });
+
+            if (response.status === 201 || response.status === 200) {
+                console.log('Order submitted successfully:', response.data);
+                setIdPesanan(response.data.idOrder); // Set idOrder from response
+                setShowCheckout(true);
+            } else {
+                console.error('Error submitting the order:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting the order:', error);
+        }
+    };

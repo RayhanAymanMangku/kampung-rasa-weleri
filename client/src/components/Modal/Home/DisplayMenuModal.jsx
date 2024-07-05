@@ -46,6 +46,7 @@ export const DisplayMenuModal = ({ setShowListPesanan, orderDetails }) => {
                                 ) : (
                                     <div>No details available</div>
                                 )}
+
                             </div>
                         </div>
                     </div>
@@ -90,19 +91,19 @@ export const DisplayMenuModalDineIn = ({ setShowListPesanan, orderDetails }) => 
                             <div className="flex flex-col justify-center">
                                 {orderDetails && orderDetails.length > 0 ? (
                                     orderDetails.map((detail, index) => (
-                                        <div className="">
-                                            <div key={index} className="border-b border-gray-300 py-2 w-full">
-                                                <p className="text-xl font-semibold text-gray-800">Nama Menu: {detail.namaMenu}</p>
-                                                <p className="font-semibold text-gray-800 text-xl">Porsi: {detail.quantity}</p>
-                                            </div>
-                                            <div className="">
-                                                <p className="font-semibold text-gray-800 text-xl">Total Harga: {orderDetails.totalPrice}</p>
-                                            </div>
+                                        <div key={index} className="border-b border-gray-300 py-2 w-full">
+                                            <p className="text-xl font-semibold text-gray-800">Nama Menu: {detail.namaMenu}</p>
+                                            <p className="font-semibold text-gray-800 text-xl">Porsi: {detail.quantity}</p>
+                                            <p className="font-semibold text-gray-800 text-xl">Waktu: {detail.waktuPesanan}</p>
+                                            <p className="font-semibold text-gray-800 text-xl">Total Harga: {detail.totalPrice}</p>
                                         </div>
                                     ))
                                 ) : (
                                     <div>No details available</div>
                                 )}
+                                <div className="py-2 w-full">
+                                    <p className="font-semibold text-gray-800 text-xl">Total Harga: {orderDetails.totalPrice}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,10 +112,6 @@ export const DisplayMenuModalDineIn = ({ setShowListPesanan, orderDetails }) => 
         </div>
     );
 };
-
-
-
-
 
 
 export const DisplayMenuModalNav = ({ setShowListPesanan }) => {
