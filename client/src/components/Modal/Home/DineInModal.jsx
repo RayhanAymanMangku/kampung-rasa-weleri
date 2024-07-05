@@ -141,6 +141,7 @@ const TabsDineIn = () => {
                         onChange={handleChange}
                         name='kontakCustomer'
                     />
+                    <label htmlFor="#" className='text-gray-600'>Jumlah Orang</label>
                     <input
                         type="number"
                         placeholder="Jumlah Orang"
@@ -156,7 +157,7 @@ const TabsDineIn = () => {
                             name='jenisEvent'
                             onChange={handleChange}
                         >
-                            <option value="">Pilih Aula</option>
+                            <option value="" >Pilih Aula</option>
                             <option value="Semeru">Aula Semeru (Kapasitas 5 - 8 orang)</option>
                             <option value="Merbabu">Aula Merbabu (Kapasitas 8 - 12 orang)</option>
                             <option value="Kerinci">Aula Kerinci (Kapasitas 12 - 15 orang)</option>

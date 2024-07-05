@@ -10,15 +10,15 @@ export const TakeWayModal = ({ setShowTakeWay }) => {
     const [showMenuList, setShowMenuList] = useState(false);
     const [idCustomer, setIdCustomer] = useState('');
 
-    useEffect(() => {
-        const customerData = localStorage.getItem("customer");
-        if (customerData) {
-            const parsedCustomerData = JSON.parse(customerData);
-            setNamaCustomer(parsedCustomerData.namaCustomer);
-            setKontakCustomer(parsedCustomerData.kontakCustomer);
-            setIdCustomer(parsedCustomerData.idCustomer);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const customerData = localStorage.getItem("customer");
+    //     if (customerData) {
+    //         const parsedCustomerData = JSON.parse(customerData);
+    //         setNamaCustomer(parsedCustomerData.namaCustomer);
+    //         setKontakCustomer(parsedCustomerData.kontakCustomer);
+    //         setIdCustomer(parsedCustomerData.idCustomer);
+    //     }
+    // }, []);
 
     const handleCloseTakeWay = () => {
         setShowTakeWay(false);

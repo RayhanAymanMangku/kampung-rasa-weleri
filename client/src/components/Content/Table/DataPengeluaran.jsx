@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import OutcomeChartBar from '../../Charts/Outcome/OutcomeChart';
 
 const DataPengeluaran = () => {
     const [outcomeList, setOutcomeList] = useState([]);
@@ -107,15 +108,15 @@ const DataPengeluaran = () => {
     };
 
     const dummyData = {
-        '2022': 10000000, // Example data for 2022
-        '2023': 15000000, // Example data for 2023
+        '2022': 10700000, // Example data for 2022
+        '2023': 15400000, // Example data for 2023
     };
     const totalPengeluaranTahunan = selectedYear === '2024' ? totalPengeluaran : dummyData[selectedYear];
 
     return (
         <div className="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg mt-12 me-12 p-4">
             <div className="flex w-full">
-                <div className="w-80 h-36 rounded-md shadow-md bg-red-500">
+                <div className=" w-96 h-36 rounded-md shadow-md bg-red-500">
                     <div className="w-full p-4">
                         <div className="w-full flex items-center">
                             <label htmlFor="#" className="text-xl font-semibold text-white">Pengeluaran (Tahun)</label>
@@ -136,8 +137,8 @@ const DataPengeluaran = () => {
                             <label htmlFor="#" className="text-white text-lg">{formatRupiah(totalPengeluaranTahunan)}</label>
                         </div>
                     </div>
-
                 </div>
+
             </div>
             <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-8">Data Pengeluaran</h2>
             <button
@@ -147,7 +148,7 @@ const DataPengeluaran = () => {
                 TAMBAH
             </button>
             <div className="flex justify-between items-center mb-4">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-sm">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-6 py-3">
@@ -232,6 +233,9 @@ const DataPengeluaran = () => {
                         )}
                     </tbody>
                 </table>
+            </div>
+            <div className="flex w-full me-12 mt-8">
+                <OutcomeChartBar />
             </div>
         </div>
     );
