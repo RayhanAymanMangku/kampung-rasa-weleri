@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 
-export const DataPengeluaran = () => {
+const DataPengeluaran = () => {
     const [outcomeList, setOutcomeList] = useState([]);
     const [newOutcome, setNewOutcome] = useState(null); // Initialize as null
+    const [totalPengeluaran, setTotalPengeluaran] = useState(0);
+    const [selectedYear, setSelectedYear] = useState("2024");
 
     useEffect(() => {
         fetchOutcomeData();
+    }, []);
+
+    useEffect(() => {
+        const fetchPengeluaran = async () => {
+            try {
+                const response = await fetch(`http://localhost:3060/api/v1/outcomes`);
+                const data = await response.json();
+                console.log("Total pengeluaran fetched from server:", data.totalPengeluaran);
+                setTotalPengeluaran(data.totalPengeluaran);
+            } catch (error) {
+                console.error('Error fetching total pengeluaran:', error);
+            }
+        };
+
+        fetchPengeluaran();
     }, []);
 
     const fetchOutcomeData = async () => {
@@ -84,9 +102,44 @@ export const DataPengeluaran = () => {
         }).format(number);
     };
 
+    const handleYearChange = (event) => {
+        setSelectedYear(event.target.value);
+    };
+
+    const dummyData = {
+        '2022': 10000000, // Example data for 2022
+        '2023': 15000000, // Example data for 2023
+    };
+    const totalPengeluaranTahunan = selectedYear === '2024' ? totalPengeluaran : dummyData[selectedYear];
+
     return (
         <div className="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg mt-12 me-12 p-4">
-            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Data Pengeluaran</h2>
+            <div className="flex w-full">
+                <div className="w-80 h-36 rounded-md shadow-md bg-red-500">
+                    <div className="w-full p-4">
+                        <div className="w-full flex items-center">
+                            <label htmlFor="#" className="text-xl font-semibold text-white">Pengeluaran (Tahun)</label>
+                            <select
+                                className="py-1 px-2 border rounded-md text-white bg-transparent ml-auto"
+                                value={selectedYear}
+                                onChange={handleYearChange}
+                            >
+                                {["2022", "2023", "2024"].map((year) => (
+                                    <option key={year} value={year} className="text-sm">
+                                        {year}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="w-full mt-3 flex items-center">
+                            <CurrencyDollarIcon className="h-6 w-6 text-white mr-2" />
+                            <label htmlFor="#" className="text-white text-lg">{formatRupiah(totalPengeluaranTahunan)}</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mt-8">Data Pengeluaran</h2>
             <button
                 onClick={handleAddRow}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mb-4 mt-4 text-xs"

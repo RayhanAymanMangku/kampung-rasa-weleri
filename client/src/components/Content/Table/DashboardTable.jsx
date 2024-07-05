@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import { DetailStafModal } from '../../Modal/Dashboard/DetailStafModal';
 
 export const DashboardTable = () => {
@@ -24,20 +25,48 @@ export const DashboardTable = () => {
     };
 
     const handleDelete = (id) => {
-        fetch('http://localhost:3060/api/v1/admin', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id_staf: id }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    setStaf(staf.filter(staf => staf.id_staf !== id));
-                } else {
-                    alert(data.error || 'Failed to delete staff');
-                }
-            })
-            .catch(error => console.error('Error deleting staff:', error));
+        Swal.fire({
+            title: 'Apakah anda yakin untuk menghapus staf ini ?',
+            text: "Anda tidak akan dapat mengembalikan ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('http://localhost:3060/api/v1/admin', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_staf: id }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            setStaf(staf.filter(staf => staf.id_staf !== id));
+                            Swal.fire(
+                                'Deleted!',
+                                'Staf berhasil dihapus.',
+                                'success'
+                            );
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                data.error || 'Failed to delete staff',
+                                'error'
+                            );
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire(
+                            'Error!',
+                            'Error deleting staff.',
+                            'error'
+                        );
+                        console.error('Error deleting staff:', error);
+                    });
+            }
+        });
     };
 
     const handleOpenDetailStaf = (stafId) => {
@@ -63,7 +92,6 @@ export const DashboardTable = () => {
                         </button>
                         {dropdownOpen && (
                             <div id="dropdownAction" className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-
                                 <div className="py-1">
                                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete User</a>
                                 </div>
@@ -166,3 +194,5 @@ export const DashboardTable = () => {
         </>
     );
 };
+
+export default DashboardTable;

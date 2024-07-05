@@ -7,9 +7,10 @@ import { GrafikPenjualanPage } from '../GrafikPage/GrafikPenjualanPage'
 import { DashboardMain } from './DashboardMain'
 import { ReservasiPage } from '../Pesanan_ReservasiPage/ReservasiPage'
 import { PengeluaranPage } from '../PengeluaranPage/PengeluaranPage'
+import TambahMenu from '../TambahMenu/TambahMenu'
 
 export const DashboardAdmin = () => {
-    const [activeContent, setActiveContent] = useState("pesanan");
+    const [activeContent, setActiveContent] = useState("dashboardData");
 
     const handleTabChange = (content) => {
         setActiveContent(content);
@@ -30,11 +31,12 @@ export const DashboardAdmin = () => {
             </div>
             <div className="w-full h-full">
                 <div className="dashboard-admin h-full " >
+                    {activeContent === "dashboardData" && <DashboardMain />}
                     {activeContent === "pesanan" && <PesananPage />}
                     {activeContent === "grafikPenjualan" && <GrafikPenjualanPage />}
-                    {activeContent === "dashboardData" && <DashboardMain />}
                     {activeContent === "reservasi" && <ReservasiPage />}
                     {activeContent === "pengeluaran" && <PengeluaranPage />}
+                    {activeContent === "tambahMenu" && <TambahMenu />}
                 </div>
             </div>
         </div>

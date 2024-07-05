@@ -15,11 +15,10 @@ import {
 
 
     InboxIcon,
-
-
     ChartBarIcon,
+    FolderIcon,
 } from "@heroicons/react/24/solid";
-import { ShoppingCartIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 export function SidebarWithLogo({ handleTabChange }) {
     const [open, setOpen] = React.useState(0);
@@ -46,6 +45,10 @@ export function SidebarWithLogo({ handleTabChange }) {
 
     const handleClickPengeluaran = () => {
         handleTabChange("pengeluaran");
+    }
+
+    const handleClickMenu = () => {
+        handleTabChange("tambahMenu");
     }
 
     return (
@@ -99,6 +102,12 @@ export function SidebarWithLogo({ handleTabChange }) {
                             <ShoppingCartIcon className="h-5 w-5" />
                         </ListItemPrefix>
                         Data Pengeluaran
+                    </ListItem>
+                    <ListItem onClick={handleClickMenu} >
+                        <ListItemPrefix>
+                            <FolderIcon className="h-5 w-5" />
+                        </ListItemPrefix>
+                        Tambah Menu
                     </ListItem>
                 </List>
             </Card>
