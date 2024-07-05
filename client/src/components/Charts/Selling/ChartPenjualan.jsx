@@ -284,8 +284,8 @@ export default function ChartPenjualan() {
             <div className="w-full flex-row mt-4">
                 <DataPenjualan totalPengeluaran={totalPengeluaran} totalIncome2024={totalIncome2024} />
                 <div className="w-full flex mt-8">
-                    <div className="grid grid-cols-2 w-full">
-                        <div className="w-full pe-8">
+                    <div className="grid grid-cols-2 w-full gap-4">
+                        <div className="w-full">
                             <Chart1 selectedYear={selectedYear} handleYearChange={handleYearChange} chartData={chartData} />
                         </div>
                         <div className="w-full pe-14">
