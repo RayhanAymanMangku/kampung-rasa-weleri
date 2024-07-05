@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import axios from 'axios';
-import { CheckoutModal } from './CheckoutModal';
+import { CheckoutModal, CheckoutModalDineIn } from './CheckoutModal';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
 
 export const MenuListModal = ({ idCustomer, namaCustomer, kontakCustomer, setShowMenuList }) => {
@@ -169,13 +169,12 @@ export const MenuListModal = ({ idCustomer, namaCustomer, kontakCustomer, setSho
 
 
 export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, selectedTable, setShowMenuList }) => {
-    console.log("Received props in MenuListModalDineIn:", { idCustomer, namaCustomer, kontakCustomer, selectedTable }); // Debugging log
-
     const [totalPrice, setTotalPrice] = useState(0);
     const [content, setContent] = useState([]);
     const [groupedContent, setGroupedContent] = useState({});
     const [kategoriMenu, setKategoriMenu] = useState([]);
     const [showCheckout, setShowCheckout] = useState(false);
+    const [idPesanan, setIdPesanan] = useState(null);
 
     const getOrderDetails = () => {
         return content.filter(item => item.quantity > 0).map(item => ({
@@ -222,6 +221,7 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
 
             if (response.status === 201 || response.status === 200) {
                 console.log('Order submitted successfully:', response.data);
+                setIdPesanan(response.data.idOrder); // Set idOrder from response
                 setShowCheckout(true);
             } else {
                 console.error('Error submitting the order:', response.statusText);
@@ -339,13 +339,12 @@ export const MenuListModalDineIn = ({ idCustomer, namaCustomer, kontakCustomer, 
                         <button className='px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition duration-200' onClick={handleCheckout}>Checkout</button>
                     </div>
 
-                    {showCheckout && <CheckoutModal setShowCheckout={setShowCheckout} orderData={{ waktuPesanan: new Date().toISOString(), totalHarga: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, selectedTable }} />}
+                    {showCheckout && <CheckoutModalDineIn setShowCheckout={setShowCheckout} orderData={{ waktuPesanan: new Date().toISOString(), totalHarga: totalPrice, orderDetails: getOrderDetails(), namaCustomer: namaCustomer, idCustomer: idCustomer, kontakCustomer: kontakCustomer, selectedTable, idPesanan }} />}
                 </div>
             </div>
         </div>
     );
 };
-
 
 
 

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export const TakeAwayTable = ({ orders, handleShowMenuModal, handleDeleteOrder }) => {
-    console.log('TakeAway Table orders:',); // Debugging log
+    const [completedOrders, setCompletedOrders] = useState([]);
+
+    const handleCompleteOrder = (idPesanan) => {
+        setCompletedOrders([...completedOrders, idPesanan]);
+        handleDeleteOrder(idPesanan); // Optional: Call original delete order handler if needed
+    };
 
     return (
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -24,7 +29,11 @@ export const TakeAwayTable = ({ orders, handleShowMenuModal, handleDeleteOrder }
                             <button onClick={() => handleShowMenuModal(order.idPesanan)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded font-bold text-xs">DETAIL</button>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                            <button onClick={() => handleDeleteOrder(order.idPesanan)} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded font-bold text-xs">DIAMBIL</button>
+                            {completedOrders.includes(order.idPesanan) ? (
+                                <span className="text-green-600 font-bold">SELESAI</span>
+                            ) : (
+                                <button onClick={() => handleCompleteOrder(order.idPesanan)} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded font-bold text-xs">DIAMBIL</button>
+                            )}
                         </td>
                     </tr>
                 )) : (

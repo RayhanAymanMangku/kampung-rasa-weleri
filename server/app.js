@@ -23,6 +23,7 @@ const reservasiRoutes = require("./db/routes/reservasi");
 const whatsappRoutes = require("./db/routes/whatsapp");
 const loginRoutes = require("./db/routes/login");
 const midtransRoutes = require("./db/routes/payment");
+const midtransRoutes2 = require("./db/routes/payment_dinein");
 const midtransClient = require("midtrans-client");
 
 const { Server } = require("http");
@@ -62,6 +63,7 @@ app.use(reservasiRoutes);
 app.use(whatsappRoutes);
 app.use(loginRoutes);
 app.use(midtransRoutes);
+app.use(midtransRoutes2);
 app.use(bodyParser.json());
 
 app.use(
