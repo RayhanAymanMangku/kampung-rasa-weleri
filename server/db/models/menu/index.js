@@ -10,7 +10,17 @@ function getMenuById(idMenu) {
   return knex("menu").where({ idMenu }).first();
 }
 
+function createMenu(menu) {
+  return knex("menu").insert(menu);
+}
+
+function deleteMenu(idMenu) {
+  return knex("menu").where({ idMenu }).del();
+}
+
 module.exports = {
   getMenus,
   getMenuById,
+  createMenu,
+  deleteMenu,
 };
