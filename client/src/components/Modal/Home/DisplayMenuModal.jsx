@@ -101,9 +101,7 @@ export const DisplayMenuModalDineIn = ({ setShowListPesanan, orderDetails }) => 
                                 ) : (
                                     <div>No details available</div>
                                 )}
-                                <div className="py-2 w-full">
-                                    <p className="font-semibold text-gray-800 text-xl">Total Harga: {orderDetails.totalPrice}</p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
