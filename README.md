@@ -1,6 +1,6 @@
-![Alt text](https://github.com/RayhanAymanMangku/kampung-rasa/blob/master/client/public/assets/img/Logo/logo-fix-2.png?raw=true)
+![Alt text](https://github.com/RayhanAymanMangku/kampung-rasa-weleri/blob/master/client/public/assets/img/Logo/logo-fix-2.png?raw=true)
 
-![Alt text](https://github.com/RayhanAymanMangku/kampung-rasa/blob/master/client/public/assets/img/Items/documentation.png?raw=true)
+![Alt text](https://github.com/RayhanAymanMangku/kampung-rasa-weleri/blob/master/client/public/assets/img/Items/documentation.png?raw=true)
 
 Kampung Rasa is an innovative Content Management System (CMS) website platform designed to help restaurant admins manage their order data effectively. Kampung Rasa combines the ease of use of a CMS with the power of Language Model (LLM) technology to deliver a sophisticated and responsive content management experience.
 
