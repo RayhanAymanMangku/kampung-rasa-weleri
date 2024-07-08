@@ -14,7 +14,7 @@ Kampung Rasa is an innovative Content Management System (CMS) website platform d
 
 **Client:** React, TailwindCSS
 
-**Server:** Node, Express, Php
+**Server:** Node, Express, Groq, Midtrans
 
 ## Installation
 
