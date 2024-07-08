@@ -16,6 +16,8 @@ Kampung Rasa is an innovative Content Management System (CMS) website platform d
 
 **Server:** Node, Express, Groq, Midtrans
 
+**Database:** PostgreSQL, Knex.Js
+
 ## Installation
 
 Clone project
@@ -73,5 +75,3 @@ Run the Server
 ```bash
   node app.js
 ```
-
-Don't forget to activate XAMPP on your device
