@@ -48,6 +48,12 @@ Run the Project
   nodemon start
 ```
 
+or
+
+```bash
+  npm start
+```
+
 Open another terminal in vscode
 
 Navigate to the Server Directory
